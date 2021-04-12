@@ -12,4 +12,4 @@ send "bye\n"
 EOS
 echo "done"
 
-python /path/to/mover.py
+python3 /path/to/mover.py
