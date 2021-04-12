@@ -113,7 +113,7 @@ class Logger:
 class Runner:
 
     mapfile_path = '/path/to/mapfile'
-    addendum_path = '/path/to/addendum'
+    addendum_path = '/path/to/addendumfile'
 
     def __init__(self, loader, cleaner, joiner, logger):
         self.loader = loader
