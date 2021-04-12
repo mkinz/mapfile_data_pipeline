@@ -2,7 +2,7 @@
 
 echo "start"
 expect << 'EOS'
-spawn sftp mkinzler@hostname:PycharmProjects/filemover
+spawn sftp mkinzler@serverA:PycharmProjects/filemover
 expect "Password:"
 send "*********************"
 expect "sftp>"
