@@ -6,7 +6,7 @@ spawn sftp mkinzler@serverA:PycharmProjects/filemover
 expect "Password:"
 send "*********************"
 expect "sftp>"
-send "get add\n"
+send "get addendum_file\n"
 expect "sftp>"
 send "bye\n"
 EOS
