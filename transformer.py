@@ -112,8 +112,8 @@ class Logger:
 
 class Runner:
 
-    mapfile_path = '/tool/tech/layermap/90NVRAM/Red_oasis_map'
-    addendum_path = '/afs/btv/u/dprep/autodp/required/DP_oasis_map_addendum'
+    mapfile_path = '/path/to/mapfile'
+    addendum_path = '/path/to/addendum'
 
     def __init__(self, loader, cleaner, joiner, logger):
         self.loader = loader
