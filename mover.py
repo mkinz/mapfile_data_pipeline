@@ -9,19 +9,19 @@ import glob
 
 class Mover:
 
-    def move_file(self, src, dst, filename):
+    def move_file(self, filename, src, dst):
         try:
             shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
         except FileNotFoundError:
             print("File not found, exiting.")
 
-    def backup_current_file(self, dst, bkup_path, filename):
+    def timestamp_and_move_file(self, filename, src, dst):
         try:
             bkup_date = datetime.datetime.today().strftime('%Y-%m-%d-%s')
-            shutil.move(os.path.join(dst, filename),
-                        os.path.join(bkup_path, filename + "." + bkup_date))
+            shutil.move(os.path.join(src, filename),
+                        os.path.join(dst, filename + "." + bkup_date))
         except FileNotFoundError:
-            print(f"File not found in path \n{dst}\nExiting")
+            print(f"File not found in path \n{src}\nExiting")
             sys.exit()
 
 
@@ -42,6 +42,7 @@ class Checker:
 class Runner:
     incoming_file_path = '/users/home/mkinzler/scripts/utilities/oasisMerger'
     prod_mapfile_path = '/users/home/mkinzler/scripts/utilities/test_dest'
+    # prod_mapfile_path = '/mfgData/logs/oasisMapFiles/'
     backup_directory = "oasis_mapfile_backups"
     backup_path = os.path.join(prod_mapfile_path, backup_directory)
     mapfile = 'red_oasis_map'
@@ -60,14 +61,14 @@ class Runner:
 
         # if it does exist, then make backup of the old mapfile
         my_checker.make_backup_dir_if_not_exists(self.prod_mapfile_path, self.backup_directory)
-        my_mover.backup_current_file(self.prod_mapfile_path, self.backup_path, self.mapfile)
+        my_mover.timestamp_and_move_file(self.mapfile, self.prod_mapfile_path, self.backup_path)
 
         # move new mapfile from src to dest (prod) location
-        my_mover.move_file(self.incoming_file_path, self.prod_mapfile_path, self.mapfile)
+        my_mover.move_file(self.mapfile, self.incoming_file_path, self.prod_mapfile_path)
 
         # move logfile to backup destination path
         for logfile in glob.glob('*log*'):
-            my_mover.backup_current_file(self.incoming_file_path, self.backup_path, logfile)
+            my_mover.timestamp_and_move_file(logfile, self.incoming_file_path, self.backup_path)
 
 
 def main():
