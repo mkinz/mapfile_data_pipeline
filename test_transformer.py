@@ -1,8 +1,8 @@
 from pandas import DataFrame
 
-from oasis_mapfile_transformer import Cleaner
-from oasis_mapfile_transformer import Joiner
-from oasis_mapfile_transformer import Logger
+from transformer import Cleaner
+from transformer import Joiner
+from transformer import Logger
 
 
 # Test Cleaner
