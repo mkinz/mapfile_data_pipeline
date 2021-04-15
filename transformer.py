@@ -1,3 +1,5 @@
+# runs on fc9engrl103
+
 import pandas as pd
 import re
 import datetime
@@ -68,7 +70,7 @@ class Joiner:
         return newfile
 
     def write_joined_files_to_disk(self, joined_dataset):
-        return joined_dataset.to_csv("red_oasis_map", index=False, header=None)
+        return joined_dataset.to_csv("oasis_map_files/red_oasis_map", index=False, header=None)
 
 
 class Logger:
@@ -79,7 +81,7 @@ class Logger:
     def build_logger_header(self):
         logger_header = [f"Application run on: "
                          f"{datetime.datetime.now()}\n",
-                         'The following data levels will be removed'
+                         'The following data levels will be removed '
                          'from the addendum file because they are >30 characters:\n\n']
         return logger_header
 
@@ -103,8 +105,7 @@ class Logger:
         return logger
 
     def write_log_to_disk(self, log_in_memory):
-        log_date = datetime.datetime.today().strftime('%Y-%m-%d')
-        with open('joined_mapfile_log.' + log_date, 'w') as f:
+        with open('logs/joined_mapfile_log','w') as f:
             for line in log_in_memory:
                 f.write(line)
         return
@@ -112,8 +113,8 @@ class Logger:
 
 class Runner:
 
-    mapfile_path = '/path/to/mapfile'
-    addendum_path = '/path/to/addendumfile'
+    mapfile_path = '/tool/tech/layermap/90NVRAM/Red_oasis_map'
+    addendum_path = '/afs/btv/u/dprep/autodp/required/DP_oasis_map_addendum'
 
     def __init__(self, loader, cleaner, joiner, logger):
         self.loader = loader
@@ -121,7 +122,7 @@ class Runner:
         self.joiner = joiner
         self.logger = logger
 
-    def run_the_code(self):
+    def run_it(self):
 
         # LOAD data
 
@@ -141,12 +142,12 @@ class Runner:
         filtered_empty_lines = self.cleaner.filter_blank_lines(filtered_addendum_data)
 
         # build new dataframe object of cleaned data
-        addendum_dataFrame = self.cleaner.make_dataframe(filtered_empty_lines)
+        addendum_dataframe = self.cleaner.make_dataframe(filtered_empty_lines)
 
         # JOIN data
 
         # join the map and addendum files together
-        joined_data = self.joiner.join_files(mapfile_dataframe, addendum_dataFrame)
+        joined_data = self.joiner.join_files(mapfile_dataframe, addendum_dataframe)
 
         # LOG data
 
@@ -161,9 +162,11 @@ class Runner:
 
 
 def main():
-    myRunner = Runner(Loader(), Cleaner(), Joiner(), Logger())
-    myRunner.run_the_code()
+    my_runner = Runner(Loader(), Cleaner(), Joiner(), Logger())
+    my_runner.run_it()
 
 
 if __name__ == '__main__':
     main()
+
+# everything works
