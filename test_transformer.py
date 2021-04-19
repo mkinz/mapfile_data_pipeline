@@ -1,3 +1,6 @@
+import unittest.mock as um
+import os
+
 from pandas import DataFrame
 
 from oasis_mapfile_transformer import Loader
@@ -6,18 +9,32 @@ from oasis_mapfile_transformer import Joiner
 from oasis_mapfile_transformer import Logger
 
 
+# Test that files exist in required path for code to work
+
+def test_mapfile_exists():
+    mapfile_path = '/test/mapfile/path/'
+    assert os.path.exists(mapfile_path)
+
+
+def test_addendum_file_exists():
+    addendum_path = '/test/addendum/path/'
+    assert os.path.exists(addendum_path)
+
+
 # Test Loader
 
-def test_load_to_list():
-    addendum_path = '/path/to/file'
-    dut = Loader().load_data_to_list(addendum_path)
-    assert isinstance(dut, list)
-
-
 def test_load_to_dataframe():
-    mapfile_path = '/path/to/file'
-    dut = Loader().load_data_to_dataframe(mapfile_path)
-    assert isinstance(dut, DataFrame)
+    with um.patch('builtins.open', um.mock_open(read_data='test data for dataframe')):
+        with open('/random/test/path') as f:
+            dut = Loader().load_data_to_dataframe(f)
+            assert isinstance(dut, DataFrame)
+
+
+def test_load_to_list():
+    with um.patch('builtins.open', um.mock_open(read_data='test data for list')):
+        with open('/random/test/path') as f:
+            dut = Loader().load_data_to_list(f)
+            assert isinstance(dut, list)
 
 
 # Test Cleaner
