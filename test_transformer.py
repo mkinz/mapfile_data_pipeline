@@ -1,8 +1,23 @@
 from pandas import DataFrame
 
-from transformer import Cleaner
-from transformer import Joiner
-from transformer import Logger
+from oasis_mapfile_transformer import Loader
+from oasis_mapfile_transformer import Cleaner
+from oasis_mapfile_transformer import Joiner
+from oasis_mapfile_transformer import Logger
+
+
+# Test Loader
+
+def test_load_to_list():
+    addendum_path = '/path/to/file'
+    dut = Loader().load_data_to_list(addendum_path)
+    assert isinstance(dut, list)
+
+
+def test_load_to_dataframe():
+    mapfile_path = '/path/to/file'
+    dut = Loader().load_data_to_dataframe(mapfile_path)
+    assert isinstance(dut, DataFrame)
 
 
 # Test Cleaner
