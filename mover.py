@@ -18,7 +18,10 @@ class Mover:
             else:
                 shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
         except FileNotFoundError:
-            print(f"File not found in path \n{src}\nExiting")
+            print(f'File not found in path \n{src}\nExiting')
+            sys.exit()
+        except PermissionError:
+            print(f'Cannot write to \n{dst}\nCheck path permissions\nExiting')
             sys.exit()
 
 
