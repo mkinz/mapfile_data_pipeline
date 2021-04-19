@@ -9,17 +9,14 @@ import glob
 
 class Mover:
 
-    def move_file(self, filename, src, dst):
+    def move_file(self, filename, src, dst, *timestamp):
         try:
-            shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
-        except FileNotFoundError:
-            print("File not found, exiting.")
-
-    def timestamp_and_move_file(self, filename, src, dst):
-        try:
-            bkup_date = datetime.datetime.today().strftime('%Y-%m-%d-%s')
-            shutil.move(os.path.join(src, filename),
-                        os.path.join(dst, filename + "." + bkup_date))
+            if timestamp:
+                bkup_date = datetime.datetime.today().strftime('%Y-%m-%d-%s')
+                shutil.move(os.path.join(src, filename),
+                            os.path.join(dst, filename + "." + bkup_date))
+            else:
+                shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
         except FileNotFoundError:
             print(f"File not found in path \n{src}\nExiting")
             sys.exit()
@@ -46,29 +43,31 @@ class Runner:
     backup_directory = "oasis_mapfile_backups"
     backup_path = os.path.join(prod_mapfile_path, backup_directory)
     mapfile = 'red_oasis_map'
+    my_timestamp = True
 
     def __init__(self, checker, mover):
         self.checker = checker
         self.mover = mover
 
     def run_it(self):
-        # instantiate objects
+
         my_checker = Checker()
         my_mover = Mover()
 
-        # first, check if new mapfile exists in source path, else exit
         my_checker.check_if_new_mapfile_exists(self.incoming_file_path, self.mapfile)
 
-        # if it does exist, then make backup of the old mapfile
+        # check is backup path exists, if not then make it
         my_checker.make_backup_dir_if_not_exists(self.prod_mapfile_path, self.backup_directory)
-        my_mover.timestamp_and_move_file(self.mapfile, self.prod_mapfile_path, self.backup_path)
 
-        # move new mapfile from src to dest (prod) location
+        # move current mapfile from the prod path to the backup path, add a timestamp
+        my_mover.move_file(self.mapfile, self.prod_mapfile_path, self.backup_path, self.my_timestamp)
+
+        # then move new mapfile from source path to production path
         my_mover.move_file(self.mapfile, self.incoming_file_path, self.prod_mapfile_path)
 
-        # move logfile to backup destination path
+        # move logfile to backup destination path, and timestamp it
         for logfile in glob.glob('*log*'):
-            my_mover.timestamp_and_move_file(logfile, self.incoming_file_path, self.backup_path)
+            my_mover.move_file(logfile, self.incoming_file_path, self.backup_path, self.my_timestamp)
 
 
 def main():
