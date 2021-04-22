@@ -1,5 +1,3 @@
-# RUNS ON BTVM sfc9mhtvp01
-
 import shutil
 import os
 import datetime
