@@ -40,7 +40,6 @@ class Checker:
 class Runner:
     incoming_file_path = '/users/home/mkinzler/scripts/utilities/oasisMerger'
     prod_mapfile_path = '/users/home/mkinzler/scripts/utilities/test_dest'
-    # prod_mapfile_path = '/mfgData/logs/oasisMapFiles/'
     backup_directory = "oasis_mapfile_backups"
     backup_path = os.path.join(prod_mapfile_path, backup_directory)
     mapfile = 'red_oasis_map'
@@ -78,4 +77,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-# everything works
