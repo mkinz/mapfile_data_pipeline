@@ -59,7 +59,7 @@ class Cleaner:
 
 class Joiner:
     '''
-    This class provided methods for joining two together
+    This class provided methods for joining two dataframes together
     and writing the joined files to disk.
     '''
 
