@@ -38,8 +38,8 @@ class Checker:
 
 
 class Runner:
-    incoming_file_path = '/users/home/mkinzler/scripts/utilities/oasisMerger'
-    prod_mapfile_path = '/users/home/mkinzler/scripts/utilities/test_dest'
+    incoming_file_path = '/users/home/mkinzler/scripts/utilities/test_incoming'
+    prod_mapfile_path = '/users/home/mkinzler/scripts/utilities/test_destination'
     backup_directory = 'backups'
     backup_path = os.path.join(prod_mapfile_path, backup_directory)
     mapfile = 'mapfile'
