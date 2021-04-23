@@ -51,23 +51,20 @@ class Runner:
 
     def run_it(self):
 
-        my_checker = Checker()
-        my_mover = Mover()
-
-        my_checker.check_if_new_mapfile_exists(self.incoming_file_path, self.mapfile)
+        self.checker.check_if_new_mapfile_exists(self.incoming_file_path, self.mapfile)
 
         # check is backup path exists, if not then make it
-        my_checker.make_backup_dir_if_not_exists(self.prod_mapfile_path, self.backup_directory)
+        self.checker.make_backup_dir_if_not_exists(self.prod_mapfile_path, self.backup_directory)
 
         # move current mapfile from the prod path to the backup path, add a timestamp
-        my_mover.move_file(self.mapfile, self.prod_mapfile_path, self.backup_path, self.my_timestamp)
+        self.mover.move_file(self.mapfile, self.prod_mapfile_path, self.backup_path, self.timestamp_it)
 
         # then move new mapfile from source path to production path
-        my_mover.move_file(self.mapfile, self.incoming_file_path, self.prod_mapfile_path)
+        self.mover.move_file(self.mapfile, self.incoming_file_path, self.prod_mapfile_path)
 
         # move logfile to backup destination path, and timestamp it
         for logfile in glob.glob('*log*'):
-            my_mover.move_file(logfile, self.incoming_file_path, self.backup_path, self.my_timestamp)
+            self.mover.move_file(logfile, self.incoming_file_path, self.backup_path, self.timestamp_it)
 
 
 def main():
