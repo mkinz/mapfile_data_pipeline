@@ -87,14 +87,14 @@ def test_create_logger_header():
 
 
 def test_create_logger_contents():
-    sample_contents = ['Anchored_OPC_Final_lessthan_MINSPACE                    10000  201']
+    sample_contents = ['Very_Long_test_string_with_lots_of_CHARACTERS                   10000  201']
     dut = Logger().build_logger_contents_of_removed_items(sample_contents)
     assert dut == sample_contents
 
 
 def test_create_logger_in_memory():
     sample_header = ['Test']
-    sample_contents = ['Anchored_OPC_Final_lessthan_MINSPACE                    10000  201']
+    sample_contents = ['Very_Long_test_string_with_lots_of_CHARACTERS                   10000  201']
     dut = Logger().create_log_in_memory(sample_header, sample_contents)
     assert dut[0] == sample_header[0]
     assert dut[1].strip() == sample_contents[0].strip()
