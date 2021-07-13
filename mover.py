@@ -38,8 +38,8 @@ class Checker:
 
 
 class Runner:
-    incoming_file_path = '/users/home/mkinzler/scripts/utilities/test_incoming'
-    prod_mapfile_path = '/users/home/mkinzler/scripts/utilities/test_destination'
+    incoming_file_path = '/path/to/incoming/file'
+    prod_mapfile_path = '/path/to/production/file'
     backup_directory = 'backups'
     backup_path = os.path.join(prod_mapfile_path, backup_directory)
     mapfile = 'mapfile'
