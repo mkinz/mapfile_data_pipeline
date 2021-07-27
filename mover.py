@@ -63,8 +63,9 @@ class Runner:
         self.mover.move_file(self.mapfile, self.incoming_file_path, self.prod_mapfile_path)
 
         # move logfile to backup destination path, and timestamp it
-        for logfile in glob.glob('*log*'):
-            self.mover.move_file(logfile, self.incoming_file_path, self.backup_path, self.timestamp_it)
+        for logfile in os.listdir(self.incoming_file_path):
+            if logfile.endswith("log"):
+                self.mover.move_file(logfile, self.incoming_file_path, self.backup_path, self.timestamp_it)
 
 
 def main():
