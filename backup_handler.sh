@@ -19,12 +19,10 @@ mkdir $backup_dir
 for item in $( ls ); do 
     if [[ $item == *log* ]] 
      then
-       cp $item $backup_dir
-       rm $item
+       mv $item $backup_dir
     elif [[ $item == *map* ]]
      then
-       cp $item $backup_dir
-       rm $item
+       mv $item $backup_dir
     fi
 done
 
