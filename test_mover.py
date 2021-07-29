@@ -15,7 +15,7 @@ def test_write_access_to_prod_mapfile_path():
     assert os.access(prod_mapfile_path, os.W_OK)
 
 
-def test_write_access_to_prod_back_directory_path():
+def test_write_access_to_prod_backup_directory_path():
     backup_directory = '/production/file/path/backups/'
     assert os.access(backup_directory, os.W_OK)
 
