@@ -49,11 +49,11 @@ class Cleaner:
         add_spaces_back = ["".join(a).lstrip().strip() for a in filtered_data]
         return add_spaces_back
 
-    def filter_blank_lines(self, list_of_input_file_data):
+    def filter_blank_lines(self, list_of_input_file_data) -> list:
         non_empty_lines = [line for line in list_of_input_file_data if line.strip() != ""]
         return non_empty_lines
 
-    def make_dataframe(self, list_of_input_file_data):
+    def make_dataframe(self, list_of_input_file_data) -> pd.DataFrame:
         return pd.DataFrame(list_of_input_file_data)
 
 
