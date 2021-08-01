@@ -15,7 +15,7 @@ backup_dir=${backup_date}"-backups"
 mkdir $backup_dir
 
 
-# loop through items in pwd and find lbl and sf4 files
+# loop through items in pwd and find *log* and *map* files
 for item in $( ls ); do 
     if [[ $item == *log* ]] 
      then
