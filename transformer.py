@@ -43,10 +43,10 @@ class Cleaner:
             split_data.append(re.split(r'(\s+)', item))
 
         # apply len(30) filter
-        filtered_data = [a for a in split_data if len(a[0]) <= 30]
+        filtered_data = [item for item in split_data if len(a[0]) <= 30]
 
         # rejoin data, and lstrip to removing leading whitespace
-        add_spaces_back = ["".join(a).lstrip().strip() for a in filtered_data]
+        add_spaces_back = ["".join(item).lstrip().strip() for item in filtered_data]
         return add_spaces_back
 
     def filter_blank_lines(self, list_of_input_file_data) -> list:
@@ -90,7 +90,7 @@ class Logger:
             split_data.append(re.split(r'(\s+)', item))
 
         items_to_remove = [line for line in split_data if len(line[0]) > 30 and not line[0].startswith("#")]
-        filtered_items = ["".join(a).strip() for a in items_to_remove]
+        filtered_items = ["".join(item).strip() for item in items_to_remove]
         return filtered_items
 
     def create_log_in_memory(self, header_information, list_of_logged_data):
