@@ -43,7 +43,7 @@ class Cleaner:
             split_data.append(re.split(r'(\s+)', item))
 
         # apply len(30) filter
-        filtered_data = [item for item in split_data if len(a[0]) <= 30]
+        filtered_data = [item for item in split_data if len(item[0]) <= 30]
 
         # rejoin data, and lstrip to removing leading whitespace
         add_spaces_back = ["".join(item).lstrip().strip() for item in filtered_data]
