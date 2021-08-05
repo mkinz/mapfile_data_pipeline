@@ -3,10 +3,10 @@ import os
 
 from pandas import DataFrame
 
-from oasis_mapfile_transformer import Loader
-from oasis_mapfile_transformer import Cleaner
-from oasis_mapfile_transformer import Joiner
-from oasis_mapfile_transformer import Logger
+from transformer import Loader
+from transformer import Cleaner
+from transformer import Joiner
+from transformer import Logger
 
 
 # Test that files exist in required path for code to work
